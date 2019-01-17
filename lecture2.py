@@ -87,3 +87,109 @@ def f(x,y,z, a=None, b=None):
     print x, y, z, a, b
 
 apply(f, [1,2,3], {'a':4, 'b':5})
+
+#iterators
+for element in [1, 2, 3]:    print element
+for element in (1, 2, 3):    print element
+for key in {"1":'22',"23":"222"}:    print key
+for char in "123":    print char
+it = iter("abc")
+print it.next(), it.next(), it.next()#, it.next()
+
+#generator(__iter() and next() are alredy implemented)
+def reverse(data):
+        for index in range(len(data)-1, -1 , -1):      yield data[index]
+
+for char in reverse('word'):    print char
+a  = reverse('iti')
+print a.next() , a.next()
+a = (i*i for i in range(10));
+print a
+
+
+#decorator
+def decorator_bold(decorated_func):
+    def inner(symbols2):
+        print '<b>'
+        decorated_func(symbols2)
+        print '</b>'
+    return inner
+
+def decorator_italic(decorated_func):
+    def inner(symbols1):
+        print '<i>'
+        decorated_func(symbols1)
+        print '</i>'
+    return inner
+
+@decorator_italic
+@decorator_bold
+def word(symbols):
+    print "Hello", symbols
+word("dupa")
+print word
+
+#decorator with parameter
+def tag(name):
+    def decorator(fun_hello):
+        def inner(who):
+            print "<%s>" % name
+            fun_hello(who)
+            print "</%s>" % name
+        return inner
+    return decorator
+    
+@tag("tag2")
+@tag("tag1")
+def hello(who):
+    print who
+print hello("1")
+
+#decorator wrap
+from functools import wraps
+def decoratorBoldWrapper(fun_hello):
+    @wraps(fun_hello)
+    def inner(who):
+        print "<b>"
+        fun_hello(who)
+        print "</b>"
+    return inner
+
+@decoratorBoldWrapper
+def fun_hello(who):
+    print who
+
+fun_hello(1)
+
+
+def benchmark(func):
+    """
+    decorator that print time that was spent on processing of decorated function
+    """
+    import time 
+    def wrapper(*args,**kwargs):
+        t = time.clock()
+        res = func(*args, **kwargs)
+        print func.__name__, time.clock() - t 
+        return res
+    return wrapper
+
+def counter(func):
+    def wrapper(*args,**kwargs):
+        wrapper.count +=1
+        res = func(*args, **kwargs)
+        print "{} invoked: {}x".format(func.__name__,wrapper.count)
+        return res
+    wrapper.count = 0
+    return wrapper
+
+@benchmark
+@counter
+def calc():
+    i = 0
+    for n in range(1,10000000):i+=n
+
+
+calc()
+calc()
+calc()

@@ -233,127 +233,34 @@ elif indexmax < indexmax2:
     print a[indexmax:indexmax2+1]
 
 #27.     We have list of numbers. Need to find sum of numbers of even indexes and sum of numbers of odd indexes
-# a = [1, 2, 3]
-# list_o = [x for x in a if x % 2 == 1]  # using list comprehension
-# list_e = [x for x in a if x % 2 == 0]
-# print sum(list_o), sum(list_e)
-
-#or even better
-# print sum(n for n in a if n % 2 == 0)  # using generator
-# print sum(n for n in a if n % 2 == 1)
+a = [1, 2, 3]
+print sum([x for x in a if x % 2 == 1] ), sum([x for x in a if x % 2 == 0])
+#or
+print sum(n for n in a if n % 2 == 0), sum(n for n in a if n % 2 == 1) # using generator
 
 #28.     We have sting with several words. Need return a string with random mixed words.
-# base = "some words to start with"
-# splitWords = base.split()
-# random.shuffle(splitWords)
-# new = ' '.join(splitWords)
-# print new
-
+splitWords = "some words to start with".split()
+random.shuffle(splitWords)
+print ' '.join(splitWords)
+ 
 #29.     we have a file path. Need to find filename without extension
-# print(os.path.splitext("/tmp/test.txt")[0])
+print (os.path.splitext("/tmp/test.txt")[0]).split("/")[-1]
+#or
+
 #30.     Define a function reverse() that computes the reversal of a string. For example, reverse(&quot;I am testing&quot;) should return the string &quot;gnitset ma I&quot;.
-# a = (r'"I am testing reversing"')
-# print a, a[::-1]
-#31.     We have sting. Need to find count of symbols A. Need to return dict where key is unique symbols in string and value is count how much this symbols appear in string
-# a = "some  A words B to start with"
-# print 'A', 'was counted time(s)', a.count('A')
-# d = {}
-# for key in a:
-#     if key in d:
-#         d[key] += 1
-#     else:
-#         d[key] = 1
-# print d
+a = (r'"I am testing reversing"')
+print a, a[::-1]
+#31.     We have sting. Need to find count of symbols A. 
+a = "some  A words B to start with"
+
+#32 Need to return dict where key is unique symbols in string and value is count how much this symbols appear in string
+print 'A', 'was counted time(s)', a.count('A')
+d = {}
+for key in a:
+    if key in d:        d[key] += 1
+    else:               d[key] = 1
+print d
 
 #32.     We have a list of items belong to file path. Need return full path. example. a=['c:', 'tmp', 'myfile.txt']
-# a = ['c:', 'tmp', 'myfile.txt']
-# pathJoined = os.path.join(*a)  # todo check what is splat
-# print pathJoined
-
-
-#generate 4 unique ip4 address, dec 1 line
-
-
-#fibonacci, n!
-
-#function that calculates the calculates times of function execution
-
-
-#generator ip adress
-# print m
-
-#21.     What intersection result between s1={1,3,5,7,8} s2=set([2,4,6,8])
-# s1 = {1, 3, 5, 7, 8}
-# s2 = set([2, 4, 6, 8])
-# print s1 & s2
-#22.     6-x digit number. Check if this number is happy number
-# number = str(322123)
-# if number == number[::-1]:
-#     print number, " is a palindrome"
-
-#23.     Number less 64. Need to check if it is binary palindrome
-# number = 33
-# bits = bin(number)
-# print bits[2:], bits[:1:-1]
-# if bits[2:] == bits[:1:-1]:
-#     print bits, " is a palindrome"
-
-#24.     We have a list ofnumbers. Please print a index's numbers according to index's values from max to min. example a[7,3,8] → 2, 0, 1
-# a = [7, 3, 8]
-# b = a[:]
-# b.sort()
-# print b, a
-# for aelement in a:
-#     print aelement, b.index(aelement)
-
-#25.     we have a list of numbers. Need to find max and second max and list of items located between max and max2.
-# a = [7, 3, 8, 78, 12, 22, 111]
-# b = a[:]
-# b.sort()
-#todo check on length
-# max = b[-1]
-# max2 = b[-2]
-# indexmax = a.index(max)
-# indexmax2 = a.index(max2)
-# print max, max2, indexmax, indexmax2
-# if indexmax > indexmax2:
-#     print a[indexmax2:indexmax+1]
-# elif indexmax < indexmax2:
-#     print a[indexmax:indexmax2+1]
-#26.     We have list of numbers. Need to find sum of numbers of even indexes and sum of numbers of odd indexes
-# a = [1, 2, 3]
-# list_o = [x for x in a if x % 2 == 1]  # using list comprehension
-# list_e = [x for x in a if x % 2 == 0]
-# print sum(list_o), sum(list_e)
-
-#or even better
-# print sum(n for n in a if n % 2 == 0)  # using generator
-# print sum(n for n in a if n % 2 == 1)
-
-#27.     We have sting with several words. Need return a string with random mixed words.
-# base = "some words to start with"
-# splitWords = base.split()
-# random.shuffle(splitWords)
-# new = ' '.join(splitWords)
-# print new
-
-#28.     we have a file path. Need to find filename without extension
-# print(os.path.splitext("/tmp/test.txt")[0])
-#29.     Define a function reverse() that computes the reversal of a string. For example, reverse(&quot;I am testing&quot;) should return the string &quot;gnitset ma I&quot;.
-# a = (r'"I am testing reversing"')
-# print a, a[::-1]
-#30.     We have sting. Need to find count of symbols A. Need to return dict where key is unique symbols in string and value is count how much this symbols appear in string
-# a = "some  A words B to start with"
-# print 'A', 'was counted time(s)', a.count('A')
-# d = {}
-# for key in a:
-#     if key in d:
-#         d[key] += 1
-#     else:
-#         d[key] = 1
-# print d
-
-#31.     We have a list of items belong to file path. Need return full path. example. a=['c:', 'tmp', 'myfile.txt']
-# a = ['c:', 'tmp', 'myfile.txt']
-# pathJoined = os.path.join(*a)  # todo check what is splat
-# print pathJoined
+a = ['c:', 'tmp', 'myfile.txt']
+print os.path.join(*a)  # todo check what is splat

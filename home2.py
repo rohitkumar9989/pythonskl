@@ -48,6 +48,10 @@ class A:
 
 def functionReturnClass():
     return A().__class__
+
+#redo!
+
+
 print functionReturnClass(), type(functionReturnClass())
 # 8. Write decorator (benchmark) which evaluate how much time took by decorated function
 import time 
@@ -88,10 +92,36 @@ def decoratedParameters(value1, value2, dict):
     def makeNumberCubic(number):
         number**number
     [a in map(makeNumberCubic, range(1000))]
-
 decoratedParameters(1, 2, {'smth': 1})
-# Write dict comprehensions  from string generated randomly and where key is a uniq symbol and value is symbol code
 
-# Write generator which go trough file and print string number and position of substring if it has been found in string or None
-# Write a function returns all combination of all symbols of your name.
-# Write a function with tag name and uncounted list of parameters returns a string. Example: <a href=”ololo” target=”alala” id=”ululu” class=”elele” custom=”ilili”> </a>
+# 11. Write dict comprehensions  from string generated randomly and where key is a uniq symbol and value is symbol code
+import string
+randomString = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(10)])
+d = {k:v for k,v in [(i, ord(i)) for i in set(randomString)] }
+#almost proper solution(except non unique symbols):
+# d = {symbol: ord(symbol) for symbol in randomString}
+# print randomString
+# print d
+
+
+#12. Write generator which go trough file and print string number and position of substring if it has been found in string or None
+filename ="home2.py" 
+fo = open(filename, "r")
+print "Name of the file: ", fo.name
+i = 0
+for line in fo:
+    i+=1
+    if "Write" in line: print i,line
+    else: print i, None
+fo.close()
+
+#13. Write a function returns all combination of all symbols of your name.
+import itertools
+def allCombinations(word): 
+    return list(itertools.permutations(word))
+print allCombinations("Se")
+
+#14. Write a function with tag name and uncounted list of parameters returns a string. Example: <a href=”ololo” target=”alala” id=”ululu” class=”elele” custom=”ilili”> </a>
+def tagger(tagname,tagvalue, **kwargs):
+    return "<{} {}>{}</{}>".format(tagname,"".join({ " {}={}".format(key, value) for key, value in kwargs.iteritems()}),tagvalue,tagname)
+print tagger(tagname="a", tagvalue="JustSomeStupidText", href="olololo",id="alalala", smth="tururu", txt="bebebe")

@@ -50,6 +50,9 @@ class P:
     @x.getter
     def x(self):
         return self.__x
+    @x.deleter
+    def x(self):
+        self._x = "deleted"
 
 a = P(1)
 print (a.x) 
@@ -130,3 +133,111 @@ class Tobot:
 print(Tobot.TobotInstances())
 x = Tobot()
 print(x.TobotInstances())
+
+
+
+#create class instance
+class Point:
+    def __init__(self, x, y, z):
+        self.coord = (x,y,z)
+
+    def __repr__(self):
+        return "Point (%s, %s, %s)" % self.coord
+#using new
+
+class Singleton(object):
+    obj = None
+    def __new__(cls, *dt, **mp):
+        if cls.obj is None:
+            cls.obj = object.__new__(cls, *dt, **mp)
+        return cls.obj
+
+obj = Singleton()
+obj.attr = 12
+new_obj = Singleton()
+print(new_obj.attr)
+print (new_obj is obj)
+
+#inheritance
+class Parent(object):
+    def isParOrChild(self): return True
+    def who(self):          return 'Parent'
+class Child(Parent):
+    def who(self): return 'Child'
+
+x = Parent()
+y = Child()
+print(x.who())
+print(y.who())
+
+class ChildV2(Parent):
+    def __init__(self):
+        #old way
+        #Parent.__init__(self)
+        #or
+        #super().__init__(self)
+        #or
+        super(ChildV2, self).__init__()
+
+a = ChildV2()
+
+
+# NotImplementedError
+class abstobj(object):
+    #self for passing class instances
+    def abstmeth(self):
+       raise NotImplementedError('Method is not implemented. Why are you calling it?')
+    def __del__(self):
+        pass
+#static 
+    @staticmethod
+    def printStatic():
+        print(1)
+
+    @classmethod
+    #cls for passing class objects
+    def printClass(cls):
+        print(2)
+try:
+    abstobj().abstmeth()
+except:
+    print('some exception')
+
+abstobj.printStatic()
+abstobj.printClass()
+a = abstobj()
+a.printClass()
+a.printStatic()
+
+
+#magic methods
+class AccessCounter(object):
+    '''A class that contains a value and implements an access counter.
+    The counter increments each time the value is changed.'''
+    def __init__(self, val):
+        super(AccessCounter, self).__setattr__('counter', 0)
+        super(AccessCounter, self).__setattr__('value', val)
+
+    def __setattr__(self, name, value):
+        if name == 'value':
+            super(AccessCounter, self).__setattr__('counter', self.counter + 1)
+        # Make this unconditional.
+        # If you want to prevent other attributes to be set, raise AttributeError(name)
+        super(AccessCounter, self).__setattr__(name, value)
+
+    def __delattr__(self, name):
+        if name == 'value':
+            super(AccessCounter, self).__setattr__('counter', self.counter + 1)
+        super(AccessCounter, self).__delattr__(name)
+    def __getattribute__(self, name):
+            return "No such attribute... go away"
+x = AccessCounter("Fa")
+#x.__setattr__('attr1','attr1value')
+setattr(x, 'attr1', 'attrvalue1')
+print (getattr(x, 'attr1'))
+
+
+#type create a class on the go
+MyClass = type("MyClass", (), {})
+print(MyClass)
+print(MyClass())

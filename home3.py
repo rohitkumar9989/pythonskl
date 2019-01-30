@@ -62,238 +62,141 @@ print(Atatata().methodLister3())
 print(Atatata().methodLister4())
 print(Atatata().attributeLister1())
 
-# Write "Fasad" class for 2 other classes.  (https://pl.wikipedia.org/wiki/Fasada_(wzorzec_projektowy))
+# Write "Fasad" class for 2 other classes.
+# Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.
+# Wrap a complicated subsystem with a simpler interface.
 
-
-class Facade:
+class Facade2SecurityCheck:
     def __init__(self):
-        self._subsystem_1 = Subsystem1()
-        self._subsystem_2 = Subsystem2()
+        self._subsystem_mac = SecurityCheckMAC()
+        self._subsystem_dac = SecurityCheckDAC()
 
-    def operation(self):
-        self._subsystem_1.operation1()
-        self._subsystem_1.operation2()
-        self._subsystem_2.operation1()
-        self._subsystem_2.operation2()
+    def checkAccessRights(self, file):
+        if (self._subsystem_mac.mac_access_file(file) or self._subsystem_mac.mac_access_folder(file) or self._subsystem_dac.dac_access_file(file) or self._subsystem_dac.dac_access_folder(file)):
+            print("Security check succeeded. You can change this file.")
+        else: 
+            print("Security check failed. You have no rights there!")
 
+class SecurityCheckMAC:
+    """Implement subsystem functionality. Handle work assigned by the Facade object. Have no knowledge of the facade; that is, they keep no references to it."""
+    def mac_access_file(self, file):     return True #todo: implement function
+    def mac_access_folder(self, file):   return True #todo: implement function
 
-class Subsystem1:
-    """
-    Implement subsystem functionality.
-    Handle work assigned by the Facade object.
-    Have no knowledge of the facade; that is, they keep no references to
-    it.
-    """
-
-    def operation1(self):
-        pass
-
-    def operation2(self):
-        pass
+class SecurityCheckDAC:
+    """Implement subsystem functionality. Handle work assigned by the Facade object. Have no knowledge of the facade; that is, they keep no references to it."""
+    def dac_access_file(self,file):        return True #todo: implement function
+    def dac_access_folder(self, folder):   return True #todo: implement function
 
 
-class Subsystem2:
-    """
-    Implement subsystem functionality.
-    Handle work assigned by the Facade object.
-    Have no knowledge of the facade; that is, they keep no references to
-    it.
-    """
-
-    def operation1(self):
-        pass
-
-    def operation2(self):
-        pass
-
-
-facade = Facade()
-facade.operation()
+securityCheck = Facade2SecurityCheck()
+securityCheck.checkAccessRights("vmlinuz-4.15.0-38-generic")
 
 
 # Write "Visitor" example. 
+# - Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.
+# - The classic technique for recovering lost type information.
+# - Do the right thing based on the type of two objects.
+# - Double dispatch
 
-import abc
-class Element(metaclass=abc.ABCMeta):
-    """
-    Define an Accept operation that takes a visitor as an argument.
-    """
+class TransportCompany(ABC):
+    """Define an Accept operation that takes a visitor as an argument."""
+    @abstractmethod
+    def accept(self, visitor):  pass
 
-    @abc.abstractmethod
-    def accept(self, visitor):
-        pass
+class Cab(TransportCompany):
+    """Implement an Accept operation that takes a visitor as an argument."""
+    def accept(self, visitor): visitor.visit_cab(self)
 
+class Bus(TransportCompany):
+    """Implement an Accept operation that takes a visitor as an argument."""
+    def accept(self, visitor):visitor.visit_bus(self)
 
-class ConcreteElementA(Element):
-    """
-    Implement an Accept operation that takes a visitor as an argument.
-    """
+class Visitor(ABC):
+    """Declare a Visit operation for each class of ConcreteElement in the object structure. The operation's name and signature identifies the
+    class that sends the Visit request to the visitor. That lets the visitor determine the concrete class of the element being visited.
+    Then the visitor can access the element directly through its particular interface."""
+    @abstractmethod
+    def visit_cab(self, concrete_element_a): pass
+    @abstractmethod
+    def visit_bus(self, concrete_element_b): pass
 
-    def accept(self, visitor):
-        visitor.visit_concrete_element_a(self)
+class Passenger(Visitor):
+    """Implement each operation declared by Visitor. Each operation implements a fragment of the algorithm defined for the corresponding
+    class of object in the structure. ConcreteVisitor provides the context for the algorithm and stores its local state. This state
+    often accumulates results during the traversal of the structure."""
+    def visit_cab(self, concrete_element_a):  print("visits cab")
+    def visit_bus(self, concrete_element_b):  print("visits bus")
 
+class GroupOfPassengers(Visitor):
+    """Implement each operation declared by Visitor. Each operation implements a fragment of the algorithm defined for the corresponding
+    class of object in the structure. ConcreteVisitor provides the context for the algorithm and stores its local state. This state
+    often accumulates results during the traversal of the structure."""
+    def visit_cab(self, concrete_element_a): print("visits cab")
+    def visit_bus(self, concrete_element_b): print("visits bus")
 
-class ConcreteElementB(Element):
-    """
-    Implement an Accept operation that takes a visitor as an argument.
-    """
-
-    def accept(self, visitor):
-        visitor.visit_concrete_element_b(self)
-
-
-class Visitor(metaclass=abc.ABCMeta):
-    """
-    Declare a Visit operation for each class of ConcreteElement in the
-    object structure. The operation's name and signature identifies the
-    class that sends the Visit request to the visitor. That lets the
-    visitor determine the concrete class of the element being visited.
-    Then the visitor can access the element directly through its
-    particular interface.
-    """
-
-    @abc.abstractmethod
-    def visit_concrete_element_a(self, concrete_element_a):
-        pass
-
-    @abc.abstractmethod
-    def visit_concrete_element_b(self, concrete_element_b):
-        pass
-
-
-class ConcreteVisitor1(Visitor):
-    """
-    Implement each operation declared by Visitor. Each operation
-    implements a fragment of the algorithm defined for the corresponding
-    class of object in the structure. ConcreteVisitor provides the
-    context for the algorithm and stores its local state. This state
-    often accumulates results during the traversal of the structure.
-    """
-
-    def visit_concrete_element_a(self, concrete_element_a):
-        pass
-
-    def visit_concrete_element_b(self, concrete_element_b):
-        pass
+passenger = Passenger()
+passengersGroup = GroupOfPassengers()
+cab= Cab()
+cab.accept(passenger)
+bus = Bus()
+bus.accept(passengersGroup)
 
 
-class ConcreteVisitor2(Visitor):
-    """
-    Implement each operation declared by Visitor. Each operation
-    implements a fragment of the algorithm defined for the corresponding
-    class of object in the structure. ConcreteVisitor provides the
-    context for the algorithm and stores its local state. This state
-    often accumulates results during the traversal of the structure.
-    """
+ # Write a fabric method.
+# Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.
+# Defining a "virtual" constructor.
+# The new operator considered harmful.
+class Creator(ABC):
+    """Declare the factory method, which returns an object of type Product.Creator may also define a default implementation of the factory method that returns a default ConcreteProduct object.
+    Call the factory method to create a Product object."""
+    def __init__(self):self.product = self._factory_method()
+    @abstractmethod
+    def _factory_method(self):pass
+    def product_usage(self):self.product.interface()
 
-    def visit_concrete_element_a(self, concrete_element_a):
-        pass
+class CakeCreator(Creator):
+    """Override the factory method to return an instance of a ConcreteProduct1."""
+    def _factory_method(self):return Cake()
 
-    def visit_concrete_element_b(self, concrete_element_b):
-        pass
+class SmartphoneCreator(Creator):
+    """Override the factory method to return an instance of a ConcreteProduct2."""
+    def _factory_method(self):return Smartphone()
 
+class Product(ABC):
+    """Define the interface of objects the factory method creates."""
+    @abstractmethod
+    def interface(self):pass
 
-concrete_visitor_1 = ConcreteVisitor1()
-concrete_element_a = ConcreteElementA()
-concrete_element_a.accept(concrete_visitor_1)
+class Cake(Product):
+    """Implement the Product interface."""
+    def interface(self):print("throwing cake into face")
 
+class Smartphone(Product):
+    """Implement the Product interface. """
+    def interface(self):print("setting alarm to 3 AM")
 
-
-# Write a fabric method.  example
-class Creator(metaclass=abc.ABCMeta):
-    """
-    Declare the factory method, which returns an object of type Product.
-    Creator may also define a default implementation of the factory
-    method that returns a default ConcreteProduct object.
-    Call the factory method to create a Product object.
-    """
-
-    def __init__(self):
-        self.product = self._factory_method()
-
-    @abc.abstractmethod
-    def _factory_method(self):
-        pass
-
-    def some_operation(self):
-        self.product.interface()
-
-
-class ConcreteCreator1(Creator):
-    """
-    Override the factory method to return an instance of a
-    ConcreteProduct1.
-    """
-
-    def _factory_method(self):
-        return ConcreteProduct1()
-
-
-class ConcreteCreator2(Creator):
-    """
-    Override the factory method to return an instance of a
-    ConcreteProduct2.
-    """
-
-    def _factory_method(self):
-        return ConcreteProduct2()
-
-
-class Product(metaclass=abc.ABCMeta):
-    """
-    Define the interface of objects the factory method creates.
-    """
-
-    @abc.abstractmethod
-    def interface(self):
-        pass
-
-
-class ConcreteProduct1(Product):
-    """
-    Implement the Product interface.
-    """
-
-    def interface(self):
-        pass
-
-
-class ConcreteProduct2(Product):
-    """
-    Implement the Product interface.
-    """
-
-    def interface(self):
-        pass
-
-
-concrete_creator = ConcreteCreator1()
-concrete_creator.product.interface()
-concrete_creator.some_operation()
+smartphoneCreator = SmartphoneCreator()
+smartphoneCreator.product.interface()
+smartphoneCreator.product_usage()
 
 
 # Write example with parent (animal) and several children (dog, cat, deer, fish) classes with method "talk". 
-class Animal(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def talk(self):
-        pass
+class Animal(ABC):
+    @abstractmethod
+    def talk(self):pass
 
 class Dog(Animal):
-    def talk(self):
-        print("Bark")
+    def talk(self):print("Bark")
 class Cat(Animal):
-    def talk(self):
-        print("Meow")
+    def talk(self):print("Meow")
 class Fish(Animal):
-    def talk(self):
-        print("*speaks in fish language*")
+    def talk(self):print("*speaks in fish language*")
 class Human(Animal):
-    def talk(self):
-        print("Earth is flat!!!")
-
+    def talk(self):print("Earth is flat!!!")
 concreteAnimal = Dog()
 concreteAnimal.talk()
 Human().talk()
+
 
 
 #FROM HW2

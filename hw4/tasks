@@ -1,0 +1,6 @@
+Write module which read YAML format config file and create ONE config<filename> class which convert each YAML item to class attribute magically (smile)
+Write module which read JSON format config file and create ONE config<filename> class which convert each JSON item to class attribute magically (smile)
+Write PACKAGE pylib where 3 modules: convert different format data to PYTHON object (trying to understand format and convert data to correct python format).
+1 module: Different datatime strings (string, utf-8, base64, json) to python datetime object.
+2 module: convert strings to correct GEO coordinates (lat/lon). Examples: 41 25 01N and 120 58 57W 41°25'01"N and 120°58'57"W S17 33 08.352 and W69 01 29.74 to 41.250000, -120.976200
+3 module: write your own logger which can be used in module1/module2 and show logs in console and pass it to log file in parallel. Moreover it report dateime, filename, process and pid / class|function, log priority (DEBUG...INFO) for each log message.

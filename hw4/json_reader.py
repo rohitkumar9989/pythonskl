@@ -4,18 +4,18 @@
 # magically (smile)
 
 import os
-import yaml
+import json
 import pprint
 
-config_name = "yaml_reader.yml"
+config_name = "json_reader.json"
 
 
-class YamlConfiguration():
-    '''ideal solution'''
+class JsonConfiguration():
+    '''bad solution'''
     classes = []
 
-    def __init__(self, yaml_data):
-        [self.classes.append({key: value}) for key, value in yaml_data.items()]
+    def __init__(self, json_data):
+        [self.classes.append({key: value}) for key, value in json_data.items()]
 
     def __repr__(self):
         return "".join(str(value.keys()) +
@@ -23,7 +23,7 @@ class YamlConfiguration():
                        "\n" for value in (self.classes))
 
 
-class YamlConfiguration2():
+class JsonConfiguration2():
     '''ideal solution'''
 
     def __init__(self, kwargs):
@@ -35,7 +35,7 @@ class YamlConfiguration2():
                        "\n" for attr in dir(self) if not attr.startswith('__'))
 
 
-def read_yaml(configName):
+def read_json(configName):
     '''
     function to read yaml file.
     Returns - dict with the data that was read from yaml, if file exists
@@ -46,25 +46,25 @@ def read_yaml(configName):
         return None
 
     with open(configName, 'r') as configuration:
-        conf = yaml.safe_load(configuration)
+        conf = json.load(configuration)
     print(type(conf))
     return conf
 
 
 def main():
-    print("just reading/printing input data in yaml reader.")
-    configurationMap = read_yaml(config_name)
+    print("just reading/printing input data in json reader.")
+    configurationMap = read_json(config_name)
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(configurationMap)
     for key, value in configurationMap.items():
         print("{} {}".format(key, value))
 
-    print("class with dict solution.")
-    confi = YamlConfiguration(configurationMap)
+    print("\nclass with dict solution.")
+    confi = JsonConfiguration(configurationMap)
     print(confi)
 
     print("class with attrs solution.")
-    confi2 = YamlConfiguration2(configurationMap)
+    confi2 = JsonConfiguration2(configurationMap)
     print(confi2)
 
 

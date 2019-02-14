@@ -1,0 +1,14 @@
+{
+    "class1": {
+        "unit_test": true,
+        "py_test": false
+    },
+    "class2": {
+        "unit_test": false,
+        "py_test": false
+    },
+    "class3": {
+        "unit_test": false,
+        "implemented": false
+    }
+}

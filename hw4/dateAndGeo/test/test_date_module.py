@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from dateAndGeo.pylib.date_module import str2datetime
+from pylib.date_module import str2datetime
 
 
 def test_str2datetime():

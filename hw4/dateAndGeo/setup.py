@@ -17,7 +17,7 @@ install_reqs = parse_requirements(os.path.join(setup_dir, 'requirements.txt'),
 reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
-    name="date and geo data readers",
+    name="dateAndGeo",
     version="0.0.1",
     author="SKarasov",
     author_email="SKarasov@companyname.com",

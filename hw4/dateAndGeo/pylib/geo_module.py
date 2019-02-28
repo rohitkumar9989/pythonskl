@@ -3,7 +3,7 @@
 # 41 25 01N and 120 58 57W 41°25'01"N and 120°58'57"W
 # S17 33 08.352 and W69 01 29.74 to 41.250000, -120.976200
 from geopy.point import Point
-from dateAndGeo.pylib.own_logger import logger
+from pylib.own_logger import logger
 
 
 def string2geo(geo_coordinates):

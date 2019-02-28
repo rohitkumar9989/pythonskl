@@ -1,7 +1,7 @@
 import pytest
 from geopy import Point
 
-from dateAndGeo.pylib.geo_module import string2geo
+from pylib.geo_module import string2geo
 
 
 def test_string2geo():

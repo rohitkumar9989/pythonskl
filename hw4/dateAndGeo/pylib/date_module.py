@@ -3,11 +3,10 @@
 # python datetime object.
 
 import base64
-import re
 import unicodedata
 from datetime import datetime
 
-from dateAndGeo.pylib.own_logger import logger
+from pylib.own_logger import logger
 
 
 def str2datetime(str):

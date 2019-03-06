@@ -267,3 +267,12 @@ pool = multiprocessing.Pool(processes=4)
 results = pool.map(cube, range(1,7))
 
 print(results)
+
+
+import objgraph 
+
+x = []
+y = [x,[x],dict(x=x)]
+objgraph.show_refs([y], filename='/tmp/y.png')
+
+print(objgraph.show_most_common_types())

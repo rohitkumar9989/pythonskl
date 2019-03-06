@@ -242,3 +242,28 @@ for num in range(5):
 
     for p in processes:
         p.join()
+
+from multiprocessing import Process, Value, Array
+
+def aaaaa(num, arr):
+    num.value = 3.14
+    for i in range(len(arr)):
+        arr[i] = -arr[i]
+num = Value('d', 0.0)
+arr = Array('i', range(10))
+p = Process(target=aaaaa, args = (num, arr))
+p.start()
+p.join()
+print('num =',num.value)
+print('arr =',arr[:])
+
+
+#pool
+def cube(x):
+    print ("cube spawned in pool {}".format(time.time()) )
+    return x**3
+
+pool = multiprocessing.Pool(processes=4)
+results = pool.map(cube, range(1,7))
+
+print(results)

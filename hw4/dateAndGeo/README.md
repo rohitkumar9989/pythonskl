@@ -40,3 +40,9 @@ cd dateAndGeo
 ```
 tox -c tox.ini
 ```
+## 5) checking coverage in pytest
+```
+python3 -m pytest --cov=dateAndGeo/ dateAndGeo/test/```
+```
+
+

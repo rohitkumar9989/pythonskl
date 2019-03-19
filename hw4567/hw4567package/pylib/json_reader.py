@@ -3,23 +3,22 @@
 # config<filename> class which convert each YAML item to class attribute
 # magically (smile)
 
-import os
 import json
-import pprint
+import os
 
-config_name = "../assets/json_reader.json"
+from own_logger import logger
+
+config_name = "../assets/json_reader.json"  # only for testing purposes
 
 
 class jsonconfiguration():
-    '''ideal solution'''
 
     def __init__(self, kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def __repr__(self):
-        return "".join(str(attr) + str(getattr(self, attr)) +
-                       "\n" for attr in dir(self) if not attr.startswith('__'))
+        return "".join(str(attr) + str(getattr(self, attr)) + "\n" for attr in dir(self) if not attr.startswith('__'))
 
 
 def read_json(configName):
@@ -29,26 +28,22 @@ def read_json(configName):
             - None if file doesn't exist
     '''
     if not (os.path.exists(configName)):
-        print("No config was found. Recheck if it exists: {}".format(configName))
+        logger.error(
+            "No config was found. Recheck if it exists: {}".format(configName))
         return None
 
     with open(configName, 'r') as configuration:
         conf = json.load(configuration)
-    print(type(conf))
-    return conf
+
+    config = jsonconfiguration(conf)
+    return config
 
 
 def main():
-    print("just reading/printing input data in json reader.")
-    configurationMap = read_json(config_name)
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(configurationMap)
-    for key, value in configurationMap.items():
-        print("{} {}".format(key, value))
-
-    print("class with attrs solution.")
-    confi2 = jsonconfiguration(configurationMap)
-    print(confi2)
+    logger.info("Json reader.")
+    conf = read_json(config_name)
+    logger.info("Printing json configuration.")
+    logger.info(conf)
 
 
 if __name__ == "__main__":

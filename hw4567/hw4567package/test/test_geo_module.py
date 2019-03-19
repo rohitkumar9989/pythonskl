@@ -1,4 +1,3 @@
-import pytest
 from geopy import Point
 
 from pylib.geo_module import string2geo

@@ -37,10 +37,8 @@ def base642datetime(str):
     Returns - datatime object if datetime lib can parse the string
             - None if datetime lib cannot parse the string
     '''
-    logger.info(type(str))
     data = base64.b64decode(str)
     stringfrombase64 = "".join(chr(x) for x in data)
-    logger.info(type(data))
     return str2datetime(stringfrombase64)
 
 

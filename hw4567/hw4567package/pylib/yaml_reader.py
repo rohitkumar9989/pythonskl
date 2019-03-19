@@ -5,20 +5,20 @@
 
 import os
 import yaml
-import pprint
 
-config_name = "../assets/yaml_reader.yml"
+from own_logger import logger
+
+config_name = "../assets/yaml_reader.yml"  # only for testing purposes
+
 
 class yamlconfiguration():
-    '''ideal solution'''
 
     def __init__(self, kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def __repr__(self):
-        return "".join(str(attr) + str(getattr(self, attr)) +
-                       "\n" for attr in dir(self) if not attr.startswith('__'))
+        return "".join(str(attr) + str(getattr(self, attr)) + "\n" for attr in dir(self) if not attr.startswith('__'))
 
 
 def read_yaml(configName):
@@ -28,23 +28,23 @@ def read_yaml(configName):
             - None if file doesn't exist
     '''
     if not (os.path.exists(configName)):
-        print("No config was found. Recheck if it exists: {}".format(configName))
+        logger.error(
+            "No config was found. Recheck if it exists: {}".format(configName))
         return None
 
     with open(configName, 'r') as configuration:
         conf = yaml.safe_load(configuration)
 
-    configurationMap = yamlconfiguration(conf)
-    return configurationMap
+    config = yamlconfiguration(conf)
+    return config
 
 
 def main():
-    print("just reading/printing input data in yaml reader.")
-    configurationMap = read_yaml(config_name)
-    
-    print("class with dict solution.")
-    confi = yamlconfiguration(configurationMap)
-    print(confi)
+    logger.info("Yaml reader module.")
+    conf = read_yaml(config_name)
+    logger.info("Printing yaml configuration.")
+    logger.info(conf)
+
 
 if __name__ == "__main__":
     main()

@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import click
+
 from date_module import str2datetime
 from geo_module import string2geo
+from configsreader import printallconfigs
 
 
 @click.group()
@@ -23,6 +25,13 @@ def conver2date(datestring):
 def conver2geo(geostring):
     click.echo("str2geo {}".format(geostring))
     print(string2geo(geostring))
+
+
+@cli.command('read_configs')
+@click.argument('location')
+def read_all_configs(location):
+    click.echo("read_configs {}".format(location))
+    print(printallconfigs(location))
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import logging
 import logging.config
 import os
+
 # 3 module: write your own logger which can be used in module1/module2 and show logs in console and pass it to log file in parallel.
 # Moreover it report dateime, filename, process and pid / class|function,
 # log priority (DEBUG...INFO) for each log message.

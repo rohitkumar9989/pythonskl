@@ -1,7 +1,5 @@
 from datetime import datetime
 
-import pytest
-
 from pylib.date_module import str2datetime
 
 

@@ -7,20 +7,7 @@ import os
 import json
 import pprint
 
-config_name = "json_reader.json"
-
-
-class obsoleteJsonConfiguration():
-    '''bad solution'''
-    classes = []
-
-    def __init__(self, json_data):
-        [self.classes.append({key: value}) for key, value in json_data.items()]
-
-    def __repr__(self):
-        return "".join(str(value.keys()) +
-                       str(value.values()) +
-                       "\n" for value in (self.classes))
+config_name = "../assets/json_reader.json"
 
 
 class jsonconfiguration():
@@ -58,10 +45,6 @@ def main():
     pp.pprint(configurationMap)
     for key, value in configurationMap.items():
         print("{} {}".format(key, value))
-
-    print("\nclass with dict solution.")
-    confi = obsoleteJsonConfiguration(configurationMap)
-    print(confi)
 
     print("class with attrs solution.")
     confi2 = jsonconfiguration(configurationMap)

@@ -7,21 +7,7 @@ import os
 import yaml
 import pprint
 
-config_name = "yaml_reader.yml"
-
-
-class obsoleteYamlConfiguration():
-    '''stupid solution'''
-    classes = []
-
-    def __init__(self, yaml_data):
-        [self.classes.append({key: value}) for key, value in yaml_data.items()]
-
-    def __repr__(self):
-        return "".join(str(value.keys()) +
-                       str(value.values()) +
-                       "\n" for value in (self.classes))
-
+config_name = "../assets/yaml_reader.yml"
 
 class yamlconfiguration():
     '''ideal solution'''
@@ -47,26 +33,18 @@ def read_yaml(configName):
 
     with open(configName, 'r') as configuration:
         conf = yaml.safe_load(configuration)
-    print(type(conf))
-    return conf
+
+    configurationMap = yamlconfiguration(conf)
+    return configurationMap
 
 
 def main():
     print("just reading/printing input data in yaml reader.")
     configurationMap = read_yaml(config_name)
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(configurationMap)
-    for key, value in configurationMap.items():
-        print("{} {}".format(key, value))
-
+    
     print("class with dict solution.")
     confi = yamlconfiguration(configurationMap)
     print(confi)
-
-    print("class with attrs solution.")
-    confi2 = obsoleteYamlConfiguration(configurationMap)
-    print(confi2)
-
 
 if __name__ == "__main__":
     main()

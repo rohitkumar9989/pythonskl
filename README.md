@@ -28,3 +28,23 @@ dir(__builtins__)
 1%-3
 -2
 ```
+* backslash 
+```python
+backslash = '\\'
+print(backslash)
+\
+```
+* escape symbols
+```python
+\\ Backslash
+\' Single quote
+\" Double quote
+\b ASCII Backspace
+\n Newline
+\t Tab
+\u12af Unicode 16 bit
+\U12af89bc Unicode 32 bit
+\N{SNAKE }Unicode character
+\o84 Octal character
+\xFF Hex character
+```

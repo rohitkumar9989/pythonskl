@@ -88,5 +88,5 @@ f'Letter is {letter} and {letter.capitalize()} and some calculation {2 **.5:5.3f
 ```
 * dir - lists all the attributes of the object passed into it
 * Dunder methods start(and end) with '__'
-* help provides documentation for the method ```python help("a") ```
+* help provides documentation for the method ```help("a") ```
 

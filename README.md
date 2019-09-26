@@ -151,3 +151,14 @@ if (name == 'George' or
     name == 'Ringo'):
     print(name)
 ```
+* list 
+```python
+names = list()
+names = []
+names = ['Data']
+names = list(['Data'])
+```
+* in CPython list is array of pointers, random access, append to end, remove from end is O(1), insert,remove from non-end is O(n). For inserting,removing from non-end collections.deque is better.
+* sorting via .sort() method sorts in place, sorted() func -> returns new list
+* sorting heterogeneous list gives in Python3 "TypeError: unorderable types"
+* .sort method and sorted function allow arbitrary control of sorting by passing in a function for the key parameter.

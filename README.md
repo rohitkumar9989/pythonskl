@@ -380,7 +380,7 @@ fout.close()
 print("\N{GRINNING FACE}")
 #or 
 print("\U0001f600")
-#or utf-8
+#or utf-8 bytestring
 print(b"\xf0\x9f\x98\x80".decode('utf8'))
 ```
 * utf8 used from 8 bits to 32 bits, it is backward compatible to ascii
@@ -390,3 +390,12 @@ import locale
 locale.getpreferredencoding(False)
 ```
 * utf8 is  Unicode Transformation Format - 8-bit, ie. it is a format for Unicode.
+* python3 strings are unicode strings
+* encoding -> encoding unicode to bytestring, decoding - decoding bytestring to unicode
+* Unicode strings
+```python
+"x2"
+"x\u00b2"
+"x\N{SUPPERSCRIPT TWO}"
+```
+can be transferred to bytestring ```b"x\xcb\xb2"``` via ```.encode('utf-8')``` and bytestring can be decoded to utf-8 via ```.decode('utf-8')```

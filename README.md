@@ -352,6 +352,7 @@ open(filename, mode='r',buffering=-1, encoding=None,errors=None, newline=None, c
  for line in file.readlines(): #because of __iter__ method
        print(line)
  ```
+* reading binary files gives not strings but byte strings.It is possible to read with ```readline```, but need to check for symbol b'\n' to end
 * ```close()``` method should be called, or file to be open with ```with```
 * to write in file use ```write()``` or ```writelines()``` methods
 * to add newline in new file to pass `\n` on Linux, and `\r\n` on Windows or better is to use linesep
@@ -365,6 +366,27 @@ os.linesep
    * until .flush is called there is no guarantee that file is written(?)
    * OS has limits on open files per process
    * some OS block deleting open files.
-* ```with``` '''with''' 
-
-* reading binary files gives not strings but byte strings.It is possible to read with ```readline```, but need to check for symbol b'\n' to end
+* ```with``` is used with context managers to enforce conditions that occur before and after a block is executed
+```python
+with open(file,'w') as fout:
+    fout.write('Ringo')
+#or 
+fout = open(file,'w')
+fout.write('Ringo')
+fout.close()
+```
+* Unicode is a standart for representing glyphs(the characters that create most of written language, symbols and emoji). It is updated frequently. It has a code points (hexes) that represent glyphs.
+```python
+print("\N{GRINNING FACE}")
+#or 
+print("\U0001f600")
+#or utf-8
+print(b"\xf0\x9f\x98\x80".decode('utf8'))
+```
+* utf8 used from 8 bits to 32 bits, it is backward compatible to ascii
+* how to find preferred encoding on machine
+```python
+import locale
+locale.getpreferredencoding(False)
+```
+* utf8 is  Unicode Transformation Format - 8-bit, ie. it is a format for Unicode.

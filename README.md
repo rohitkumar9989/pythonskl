@@ -255,7 +255,6 @@ info = {'first': 'Pete','last':'Greta'}
 info = dict([('first','Pete'),('last':'Greta')])
 info['first']
 ```
-* keys in dicts should be valid python strings
 * accessing non-existing key -> exception
 ```python
 info['medium']
@@ -279,3 +278,93 @@ import collections
 count = collections.Counter(['Ringo'],['John'],['Ringo'])
 # Counter({'Ringo': 2, 'Paul': 1, 'John': 1})
 ```
+* ```collections.defaultdict``` = allows for setting the default values of a key to an arbitrary factory. If the default factory is None, it is initialized and inseted as a value any time a key is missing.
+* deleting keys(no dict increase,decrease during looping)
+```python
+del names_to_bands['Ringo']
+```
+* dictionary method ```keys``` - returns view(a window in current keys found in the dictionary, which is not a copy of the keys.i.e. if to remove the key -> window-view knows about it). Similar are dictionary methods ```values``` and ```items```
+* it is possible to have keys of different types. but the key should be hashable
+* Classes, namespaces, and modules in Python are all implemented using a dictionary under the covers
+* locals and globals
+```python
+print((locals()))
+print((globals()))
+```
+* Default parameters must be declared after non-default parameters. Otherwise, Python will give  a SyntaxError 
+* don't use mutable types(lists, dicts) as default parameters as python are creating them once at function definition time. There is a solution with moving creation of default parameters from definition time, to running time(set defaults to None):
+```python
+def to_list(value, default = None):   
+    if default is None:
+        default = []
+    # or 
+    default = default if default is not None else []
+    default.append(value)
+    return default
+```
+* naming conventions for function names(pep8):
+  * lowercase
+  * have_underscores
+  * not start with number
+  * not override built-ins
+  * not be a keyword
+* slicing
+```python
+numbers = [1,2,3,4,5]
+numbers[0:2] # start,amount
+# 1,2
+numbers[:2] # start from begin
+# 1,2
+numbers[-1] # last  element
+```
+* striding slices (each n'th element in slice)
+```python
+numbers = [1,2,3,4,5]
+print(numbers[0:-1:2])
+#same as in range
+list(range(1,5,2))
+```
+* revert using slices
+```python
+'die-hard'[::-1]
+```
+* file open
+```python
+open(filename, mode='r',buffering=-1, encoding=None,errors=None, newline=None, closefd=True, opener=None)
+```
+* for windows paths with theirs ```\``` use r"C:\test"
+* open command modes:
+  * 'r' - read only
+  * 'w' - write(overwrites if exist)
+  * 'x' - write(throw FileExistsError if exists)
+  * 'a' - append to text file
+  * 'rb' - read binary
+  * 'wb' - write binary(overrides)
+  * 'w+b' - opens bin file for reading and writing
+  * 'xb' - same as 'b'
+ * reading file
+ ```python
+ file = open('/etc/passwd')
+ file.readline()
+ #or 
+ file.read()
+ # or 
+ for line in file.readlines(): #because of __iter__ method
+       print(line)
+ ```
+* ```close()``` method should be called, or file to be open with ```with```
+* to write in file use ```write()``` or ```writelines()``` methods
+* to add newline in new file to pass `\n` on Linux, and `\r\n` on Windows or better is to use linesep
+```python
+import os
+os.linesep
+```
+* file closing
+   * if file is in global variable - never be closed during lifetime of program
+   * cPython closes garbage collected files(other implementations may not)
+   * until .flush is called there is no guarantee that file is written(?)
+   * OS has limits on open files per process
+   * some OS block deleting open files.
+* ```with``` '''with''' 
+
+* reading binary files gives not strings but byte strings.It is possible to read with ```readline```, but need to check for symbol b'\n' to end

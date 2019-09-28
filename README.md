@@ -398,4 +398,23 @@ locale.getpreferredencoding(False)
 "x\u00b2"
 "x\N{SUPPERSCRIPT TWO}"
 ```
-can be transferred to bytestring ```b"x\xcb\xb2"``` via ```.encode('utf-8')``` and bytestring can be decoded to utf-8 via ```.decode('utf-8')```
+can be transferred to bytestring ```b"x\xcb\xb2"``` via ```.encode('utf-8')``` and bytestring can be decoded to utf-8 via ```.decode('utf-8')```. Encoding transforms a human-readable representation to abstract representation.  Decoding transforms abstract representation to human readable. 
+* if python doesn't support an encoding it will throw UnicodeEncodeError. 
+```python
+"x\u00b2".encode('ascii')
+# UnicodeEncodeError: 'ascii' codec can't encode character '\xb2' in position 1: ordinal not in range(128)
+```
+* it possible to ignore unicodeerror or replace unknown symbol with question mark
+```python
+x_sq.encode('ascii', errors='ignore')
+#b'x'
+x_sq.encode('ascii', errors='replace')
+#b'x?'
+```
+* python3.6 supports 99 encodings. Mapping is in encodings.aliases.aliases
+* When you read a text file, Python will give you Unicode strings. By default, Python will use
+the default encoding ( locale.getpreferredencoding(False) ).
+```python3
+data = open('/tmp/sq.cp949').read() //implicit, nok
+data = open('/tmp/sq.cp949', encoding='cp949').read() //explicit, ok
+```

@@ -529,3 +529,49 @@ import json
 json.__file__
 ```
 works only on libs written in python
+* if __name__ == '__main__': (used if module also serves as a script.)
+* The Windows platform ignores the shebang line. So this is safe to include.
+* Rather than hardcoding a specific path to a Python executable, /usr/bin/env selects the first python3 executable found on the user’s PATH . Tools such as venv will modify your PATH to use a custom python3 executable and will work with this convention.
+```python
+#!/usr/bin/env python3
+```
+* A module may have a module-level docstring at the top of the file. It should follow the shebang line but precede any other Python code
+* Python includes a library, doctest that can verify examples from an interactive interpreter. Using docstrings that contain REPL code snippets can serve both as documentation and simple sanity tests for your library. cat.py includes doctest code at the end of its docstring. When cat.py runs with --run-tests , the doctest library will check any docstrings and validate the code found in them.
+* constants should be capitalized
+* metadate variables, usually marked with dunder. E.g. ```__author__```
+```python
+__author__ = 'Matt Harrison'
+__date__ = 'Jan 1, 2017'
+__contact__ = 'matt_harrison <at> someplace.com'
+__version__ = '0.1.1'
+```
+* doctest code can be in a stand-alone text file. To execute arbitrary files using doctest, use the testfile function:
+```
+import doctest
+doctest.testfile('module_docs.txt')
+```
+* When a module is executed (i.e. python3 some_module.py ), then the value of __name__ is the string "__main__" . In effect, the value of __name__ indicates whether a file is being loaded as a library, or run as a script.
+
+* console in windows
+```
+• cd - Change directory changes to a different directory. Typing:
+c:> cd C:\Users
+will change to the C:\Users directory.
+• echo %CD% - Will list the current directory that you are in.
+• dir - List directory will list the contents of the current directory.
+```
+
+* Here are some useful Python links:
+• https://python.org/ - Python home page
+• https://github.com/mattharrison/Tiny-Python-3.6-Notebook - Python 3.6 reference
+• http://docutils.sourceforge.net/ - reStructuredText - lightweight markup language
+for Python documentation
+• https://pyformat.info - Useful string formatting reference
+• https://pypi.python.org/pypi - Python Package Index - 3rd party packages
+• https://www.python.org/dev/peps/pep-0008/ - PEP 8 - Coding conventions
+• https://www.anaconda.com/download/ - Anaconda - Alternate Python installer
+with many 3rd party packages included
+• https://www.djangoproject.com/ - Django - Popular web framework
+• http://scikit-learn.org/ - Machine learning with Python
+• https://www.tensorflow.org/ - Deep learning with Python
+• https://www.reddit.com/r/Python/ - News for Python

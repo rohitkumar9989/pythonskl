@@ -418,3 +418,24 @@ the default encoding ( locale.getpreferredencoding(False) ).
 data = open('/tmp/sq.cp949').read() //implicit, nok
 data = open('/tmp/sq.cp949', encoding='cp949').read() //explicit, ok
 ```
+* class names in CamelCase
+* inspect class ```dir(MyClass)```
+* get help on class ```help(MyClass)```
+* attribute lookup 1) check instance 2) check class 3) if not found -> AttributeError raised
+* variable lookup 1) local scope 2) global scope 3) built-in scope 4) if not found -> NameError raised
+* class vs instance
+```python
+type(str)
+<class 'type'>
+s = str("s")
+type(s)
+#<class 'str'>
+```
+* calling function
+```python
+chair.load(3)
+#same as
+Chair.load(chair,3)
+```
+* __dict__ lists all attributes, dir() is rather to retrieve attributes visible by the variable. Non instance attributes are in class variable ```X.__class___```. 
+* kinda show that attribute,method is not for user is to put underscore, e.g. ```._variable```

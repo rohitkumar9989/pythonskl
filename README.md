@@ -473,7 +473,7 @@ except Exception as e:
 finally:
     # cleanup
 ```
-* The try / finally combination is a code smell in Python. Seasoned Python programmers will use a context manager in these cases.
+* The try / finally combination is a code smell in Python. Seasoned Python programmers will use a context manager in these cases.* 
 * raising exceptions
 ```python
 raise BaseException('Program failed')
@@ -497,3 +497,35 @@ except ZeroDivisionError as ex:
 ```python
 from math import (sin,cos)
 ```
+* different imports
+```python
+from xml.dom.minidom import parseString
+dom = parseString(string)
+
+import xml.dom.minidom
+dom = xml.dom.minidom.parseString(string)
+```
+* import should be organized in the following order acc. PEP8
+   * standart library imports
+   * 3rd party imports
+   * local package import
+* Avoid circular imports. A circular import is where modules mutually import one
+another. If you are not able (or willing) to refactor to remove the circular import, it
+is possible to place the import statement within the function or method containing
+the code that invokes it.
+* Avoid importing modules that are not available on some systems.
+* Avoid importing large modules that you may not use.
+
+* The library must be a module or a package. The library must exist in the PYTHONPATH environment variable or sys.path
+Python variable.
+* modules are files ending .py. Names should be short and lowercase(underscores).
+* package is a dir that contains __init__.py
+* PEP 8 states that directory names for packages should be short and lowercase. Underscores should not be used.
+* PYTHONPATH is an environment variable listing non-standard directories that Python looks for modules or packages in.. This variable is usually empty. It is not necessary to change PYTHONPATH unless you are developing code and want to use libraries that have not been installed.
+* ```sys.path``` lists all folders Python searches in
+* If you want to know the location of the library on the filesystem, you can inspect the __file__ attribute
+```python
+import json
+json.__file__
+```
+works only on libs written in python

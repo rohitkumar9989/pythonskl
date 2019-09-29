@@ -439,3 +439,14 @@ Chair.load(chair,3)
 ```
 * __dict__ lists all attributes, dir() is rather to retrieve attributes visible by the variable. Non instance attributes are in class variable ```X.__class___```. 
 * kinda show that attribute,method is not for user is to put underscore, e.g. ```._variable```
+* the class points to any parent classes using the __bases__
+* possible to pass functions as arguments
+```python
+def my_func(function):
+   function(1,2)
+def do_smth(number1, number2):
+    return number1+number2
+my_func(do_smth)
+``` 
+* super  - should be called within method, gives an access to the parent class.
+* super is good in MRO(method resolution order, when there are several parrents super guarantee that this order is consistent) , when base is changed, super knows about that.

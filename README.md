@@ -450,3 +450,50 @@ my_func(do_smth)
 ``` 
 * super  - should be called within method, gives an access to the parent class.
 * super is good in MRO(method resolution order, when there are several parrents super guarantee that this order is consistent) , when base is changed, super knows about that.
+* exception example
+```python
+try:
+    result = numerator / divisor
+except ZeroDivisionError as e:
+    result = None
+except Exception as e:
+    pass
+except (TypeError, ValueError):
+    name = getattr(action.type, '__name__', repr(action.type))
+    args = {'type': name, 'value': arg_string}
+    msg = _('invalid %(type)s value: %(value)r')
+    raise ArgumentError(action, msg % args)
+```
+* ```finally``` clause is used to place code that will always execute, regardless of whether an exception happens or not.
+```python
+try:
+    some_function()
+except Exception as e:
+    # handle errors
+finally:
+    # cleanup
+```
+* The try / finally combination is a code smell in Python. Seasoned Python programmers will use a context manager in these cases.
+* raising exceptions
+```python
+raise BaseException('Program failed')
+```
+* o suppress the original exception, the ZeroDivisionError , you can use the following code. This is described in “PEP 0409 – Suppressing exception context”:
+```python
+>>> def divide_work(x, y):
+...
+def log(msg):
+    print(msg)
+
+try:
+    return x/y
+except ZeroDivisionError as ex:
+    log("System is down")
+    raise ArithmeticError() from None
+```
+* When defining your own exception, you should subclass from Exception or below.
+* when importing module, there is created a variable(module-name) that points to the module
+* import several functions from one module
+```python
+from math import (sin,cos)
+```

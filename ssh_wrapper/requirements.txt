@@ -1,0 +1,7 @@
+paramiko
+click
+tox
+yapf
+pylint
+pep8
+flake8

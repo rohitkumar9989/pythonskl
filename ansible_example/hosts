@@ -1,0 +1,8 @@
+[target_dev]
+127.0.0.1
+
+[all:vars]
+remote_user=root
+ansible_connection=ssh
+ansible_user=root
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

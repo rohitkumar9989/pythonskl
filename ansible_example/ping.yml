@@ -1,0 +1,11 @@
+- name: Checkping
+  hosts: target_dev
+  gather_facts: false
+  tasks:
+    - name: run ping for the host
+      ios_command:
+        commands: ping 8.8.8.8 repeat 1
+      register: trace_result
+
+    - name: Debug registered variables
+      debug: var=trace_result

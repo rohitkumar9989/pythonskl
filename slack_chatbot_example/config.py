@@ -1,0 +1,3 @@
+# go and find values at https://api.slack.com/apps/
+OAuth_Access_Token = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+Bot_User_OAuth_Access_Token = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
